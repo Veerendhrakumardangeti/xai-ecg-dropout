@@ -175,9 +175,3 @@ python visualize_gradcam.py \
 This produces per-sample figures with the Grad-CAM heatmap behind each of the 12 leads, plus a focus score per sample — the same signal the training filter uses.
 
 ---
-
-## A note on reproducibility
-
-`seed_everything()` fixes the Python/NumPy/Torch seeds and sets cuDNN deterministic mode, so runs are repeatable. Because dropout schedules and the CAM filter all key off model state, **the same seed + same flags reproduce the same run.** If you change `--seed`, expect the survival logs (and therefore the exact numbers) to shift.
-
----
