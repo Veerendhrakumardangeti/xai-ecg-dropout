@@ -15,8 +15,8 @@ It runs across three public ECG corpora (PTB-XL, CPSC 2018, Georgia 2020) and th
 | `main.py` | Entry point. Parses args, loads a dataset, builds a model, runs the chosen training mode, then tests. |
 | `data.py` | Multi-dataset loaders (PTB-XL, CPSC 2018, Chapman, Chapman-v2, Georgia). Reads WFDB/CSV, standardises signals, builds train/val/test loaders. |
 | `model.py` | The three backbones, each adapted to single-channel 12-lead "image" input via a `build_model()` factory. |
-| `baseline.py` | Standard supervised training loop — no dropout/filtering. The control to beat. |
-| `selective_gradient.py` | All the progressive-dropout modes (DBPD, SMRD, SRD and their XAI variants) in one `TrainRevision` class. |
+| `baseline.py` | Standard supervised training loop no dropout/filtering. The control to beat. |
+| `selective_gradient.py` | All the progressive dropout modes (DBPD, SMRD, SRD and their XAI variants) in one `TrainRevision` class. |
 | `gradcam_utils.py` | Manual hook-based Grad-CAM (no `pytorch_grad_cam` dependency). Produces per-sample focus scores and heatmaps. |
 | `visualize_gradcam.py` | Standalone script to render publication-quality Grad-CAM figures from a trained checkpoint. |
 | `test.py` | Final evaluation pass — classification report, macro-F1, accuracy. |
@@ -31,10 +31,10 @@ All modes except `baseline` live in `TrainRevision` and share the same idea: war
 
 | `--mode` | Name | Drop rule |
 |----------|------|-----------|
-| `baseline` | Baseline | None — trains on everything. |
+| `baseline` | Baseline | trains on everything. |
 | `train_with_revision` | DBPD | Drops samples the model is already confident/correct on (loss-/confidence-thresholded). |
-| `smrd` | SMRD | Sample-matched revision dropout — keeps a budget-matched subset for a fair compute comparison. |
-| `srd` | SRD | Scheduled random dropout — keeps a `decay^epoch` fraction, no signal, pure schedule. |
+| `smrd` | SMRD | Sample-matched revision dropout: keeps a budget-matched subset for a fair compute comparison. |
+| `srd` | SRD | Scheduled random dropout, keeps a `decay^epoch` fraction, no signal, pure schedule. |
 | `xai_dbpd` | XAI-DBPD | DBPD **plus** a Grad-CAM focus filter: keep = high `(1 − confidence) × cam_focus`. |
 | `xai_smrd` | XAI-SMRD | SMRD with the same Grad-CAM focus filter. |
 | `xai_srd` | XAI-SRD | SRD schedule with the Grad-CAM focus filter on top. |
