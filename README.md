@@ -1,6 +1,6 @@
 # Using Explainability as a Training-Time Reliability Signal for Efficient ECG Classification
 
-Training deep models on 12-lead ECGs is expensive, and a lot of that cost is wasted on samples the model has already mastered. This repo asks a simple question: instead of throwing data away based only on loss or confidence, what if we also ask *where the model is looking*? We use Grad-CAM as a cheap, per-sample **reliability signal** during training and drop the samples that are either already easy or that the model is "getting right for the wrong reasons."
+Training deep models on 12-lead ECGs is expensive, and a lot of that cost is wasted on samples the model has already mastered. This repo asks a simple question, instead of throwing data away based only on loss or confidence, what if we also ask *where the model is looking*? We use Grad-CAM as a cheap, per-sample **reliability signal** during training and drop the samples that are either already easy or that the model is "getting right for the wrong reasons."
 
 The result is a family of progressive data-dropout schedules — with and without the explainability signal — that cut the number of samples actually backpropagated each epoch while trying to hold onto macro-F1.
 
