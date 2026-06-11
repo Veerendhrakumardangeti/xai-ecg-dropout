@@ -2,7 +2,7 @@
 
 Training deep models on 12-lead ECGs is expensive, and a lot of that cost is wasted on samples the model has already mastered. This repo asks a simple question, instead of throwing data away based only on loss or confidence, what if we also ask *where the model is looking*? We use Grad-CAM as a cheap, per-sample **reliability signal** during training and drop the samples that are either already easy or that the model is "getting right for the wrong reasons."
 
-The result is a family of progressive data-dropout schedules — with and without the explainability signal — that cut the number of samples actually backpropagated each epoch while trying to hold onto macro-F1.
+The result is a family of progressive data-dropout schedules with and without the explainability signal that cut the number of samples actually backpropagated each epoch while trying to hold onto macro-F1.
 
 It runs across three public ECG corpora (PTB-XL, CPSC 2018, Georgia 2020) and three backbones (EfficientNetV2-S, ResNet-18, MobileNetV2), and logs everything you need to compare runs: accuracy, macro-F1, effective epochs, kept-ratio curves, and Grad-CAM figures.
 
